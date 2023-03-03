@@ -30,6 +30,8 @@ def add_time(start_time, added_time, day=False):
       return "AM"
   
   def adjust_hour_output(num):
+      if num == 0:
+          return "12"
       if num > 12:
           return str(num - 12)
       return str(num)
@@ -46,7 +48,7 @@ def add_time(start_time, added_time, day=False):
 
   def check_weekday(num):
       if num > 7:
-          return num // 7 - 1
+          return num %  7 
       return num
   st_hour, st_min = convert_str_to_int(start_time)
   st_hour = st_hour + convert_time_format(start_time)
@@ -78,10 +80,10 @@ def add_time(start_time, added_time, day=False):
       return f_hour + ":" + f_min + " " + f"({day_diff} days later)"
 
   if check_day(day) and day_diff == 0:
-      return f_hour + ":" + f_min + " " + f_day
+      return f_hour + ":" + f_min + ", " + f_day
   
   if check_day(day) and day_diff == 1:
-      return f_hour + ":" + f_min + " " + f_day + " " + "(next day)"
+      return f_hour + ":" + f_min + ", " + f_day +  " " + "(next day)"
   
   if check_day(day) and day_diff > 1:
-      return f_hour + ":" + f_min + " " + f_day + " " + f"({day_diff} days later)"
+      return f_hour + ":" + f_min + ", " + f_day + " " + f"({day_diff} days later)"
